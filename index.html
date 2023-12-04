@@ -12,7 +12,19 @@
   <div id="status">起動しています</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow.js/3.15.0/tensorflow.min.js"></script>
+
   <script>
+    // カメラの許可を申請
+    const permission = await navigator.permissions.query({
+      name: 'camera',
+    });
+
+    if (permission.state === 'denied') {
+      // カメラへのアクセス権限が許可されていない場合
+      alert('カメラへのアクセス権限が許可されていません。設定から許可してください。');
+      return;
+    }
+
     // カメラからの画像を読み取る
     const video = await navigator.mediaDevices.getUserMedia({
       video: true,
